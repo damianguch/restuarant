@@ -7,6 +7,8 @@ const CategorySchema = new Schema(
     }
 )
 
+module.export = mongoose.model('Category', CategorySchema)
+
 const ProductSchema = new Schema(
     {
         name: { type: String, required: true },
