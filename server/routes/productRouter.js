@@ -30,14 +30,14 @@ router.get('/products-by-categories', async (req, res) => {
 });
 
 router.get('/products/search', (req, res) => {
-  const searchTerm = req.query.q;
+  const searchIterm = req.query.q;
 
-  if (!searchTerm) {
+  if (!searchIterm) {
     return res.status(400).json({ error: 'Search term is required' });
   }
 
   Product.find(
-    { name: { $regex: searchTerm, $options: 'i' } },
+    { name: { $regex: searchIterm, $options: 'i' } },
     (err, products) => {
       if (err) {
         return res.status(500).json({ error: 'An error occurred' });
