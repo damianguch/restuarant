@@ -1,7 +1,7 @@
 import { Banner } from '../../components/Banner';
 import { About } from '../../components/About';
 import { ProductsPreview } from '../../components/ProductsPreview';
-import { Search } from '../../components/SearchBar';
+import { Search } from '../../components/Search';
 
 const Home = () => {
   return (
