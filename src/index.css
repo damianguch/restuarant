@@ -37,3 +37,7 @@
   max-height: 109px;
   line-height: 1.26;
 }
+
+.search-result {
+  font-family: Helvetica, sans-serif;
+}

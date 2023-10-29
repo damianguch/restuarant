@@ -33,6 +33,10 @@ export const ProductsPreview = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  const onAddProduct = () => {
+    console.log(products);
+  };
+
   return (
     <div className="bg-black p-4">
       <div className="container mx-auto pb-4 w-2/3 text-white">
@@ -41,7 +45,11 @@ export const ProductsPreview = () => {
             products.map((product, index) => {
               return (
                 <div className="w-full p-3">
-                  <ProductPreviewCard key={index} product={product} />
+                  <ProductPreviewCard
+                    key={index}
+                    product={product}
+                    onAddProduct={onAddProduct}
+                  />
                 </div>
               );
             })}
