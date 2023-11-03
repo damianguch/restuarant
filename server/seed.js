@@ -16,10 +16,13 @@ async function main() {
         await categoriesCollection.insertMany(categories);
 
         let imageUrls = [
-            'https://res.cloudinary.com/dlv0lekro/image/upload/v1657056151/food-ordering-app/1_mfgcb5.png',
-            'https://res.cloudinary.com/dlv0lekro/image/upload/v1657056151/food-ordering-app/2_afbbos.png',
-            'https://res.cloudinary.com/dlv0lekro/image/upload/v1657056151/food-ordering-app/3_iawvqb.png',
+           'https://res.cloudinary.com/djheoe7ya/image/upload/v1698815312/0Kbjfwunink_pmrbg7.jpg',
+           'https://res.cloudinary.com/djheoe7ya/image/upload/v1698815312/0Kbjfwunink_pmrbg7.jpg',
+           'https://res.cloudinary.com/djheoe7ya/image/upload/v1698815189/Sekm9_nC2BM_gl5uve.jpg',
+           'https://res.cloudinary.com/djheoe7ya/image/upload/v1698815246/I90KYtZDi54_hohx8k.jpg',
+           'https://res.cloudinary.com/djheoe7ya/image/upload/v1698815161/ykThMylLsbY_gt1erf.jpg'
         ]
+        
 
         let products = [];
         for (let i = 0; i < 10; i+=1) {

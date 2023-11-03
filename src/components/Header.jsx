@@ -1,4 +1,4 @@
-import foody from '../assets/images/foody.png';
+import foody from '../assets/images/logo.webp';
 import cartIcon from '../assets/icons/cart.svg';
 import { Link } from 'react-router-dom';
 
