@@ -5,6 +5,8 @@ import { Tabs } from '../../components/Tabs';
 import Button from '../../components/elements/Button';
 import { ReactComponent as ArrowRightSvg } from '../../assets/icons/arrow-right-long-svgrepo-com.svg';
 import AddressForm from '../../components/AddressForm';
+import { ProductsSummary } from '../../components/ProductsSummary';
+import { StripeWrapper } from '../../components/PaymentForm';
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -18,10 +20,12 @@ const Cart = () => {
       </div>
     );
   }
+
   return (
     <div className="bg-white h-screen mx-auto mt-2 border border-gray-200 p-4 md:2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
       <Tabs list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab} />
       <div className={`tabs ${currentTab !== 'Summary' ? 'hidden' : ''}`}>
+        <ProductsSummary />
         <div className="flex justify-end p-2">
           <Button
             variant="dark"
@@ -36,7 +40,9 @@ const Cart = () => {
       <div className={`tabs ${currentTab !== 'Delivery' ? 'hidden' : ''}`}>
         <AddressForm onTabSwitch={handleTabSwitch} />
       </div>
-      <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}></div>
+      <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
+        <StripeWrapper />
+      </div>
     </div>
   );
 };

@@ -7,5 +7,16 @@ const initialState = {
 export const addressSlice = createSlice({
   name: 'address',
   initialState,
-  reducers: {}
+  reducers: {
+    setAddress: (state, action) => {
+      return { address: action.payload };
+    },
+    clearAddress: (state) => {
+      return { address: {} };
+    }
+  }
 });
+
+export const getAddress = (state) => state.address;
+export const { setAddress, clearAddress } = addressSlice.actions;
+export default addressSlice.reducer;
