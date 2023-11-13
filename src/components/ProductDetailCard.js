@@ -18,7 +18,7 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
         />
       </div>
       <div className="w-full flex items-center justify-center pl-4">
-        <Button onCick={onAddProduct}>Add to Cart</Button>
+        <Button onClick={() => onAddProduct}>Add to Cart</Button>
       </div>
     </div>
   );

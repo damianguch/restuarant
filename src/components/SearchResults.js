@@ -5,7 +5,6 @@ export const SearchResults = ({ menu }) => {
   const dispatch = useDispatch();
 
   const AddToCart = (product) => {
-    console.log(product);
     dispatch(addToCart(product));
   };
 
