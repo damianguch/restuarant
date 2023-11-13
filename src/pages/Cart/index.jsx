@@ -6,7 +6,8 @@ import Button from '../../components/elements/Button';
 import { ReactComponent as ArrowRightSvg } from '../../assets/icons/arrow-right-long-svgrepo-com.svg';
 import AddressForm from '../../components/AddressForm';
 import { ProductsSummary } from '../../components/ProductsSummary';
-import { StripeWrapper } from '../../components/PaymentForm';
+import { Link } from 'react-router-dom';
+import { PayButton } from '../../components/PayButton';
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -15,8 +16,12 @@ const Cart = () => {
 
   if (!cart || cart.length === 0) {
     return (
-      <div className="bg-white h-full text-black flex justify-center p-4">
+      <div className="bg-white h-full text-black text-xl flex flex-col items-center justify-start p-4">
         <h1>Your Cart is empty</h1>
+        <Link to="/" className="font-medium">
+          <span> Start Shopping</span>
+          <ArrowRightSvg className="inline" />
+        </Link>
       </div>
     );
   }
@@ -41,7 +46,7 @@ const Cart = () => {
         <AddressForm onTabSwitch={handleTabSwitch} />
       </div>
       <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
-        <StripeWrapper />
+        <PayButton cartItems={cart} />
       </div>
     </div>
   );

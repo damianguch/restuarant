@@ -35,13 +35,14 @@ const PaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // check if stripe is initialized
     if (!stripe || !elements || !cart?.length || !address) {
       return;
     }
 
     setLoading(true);
     try {
-      const { error: backeEndError, clientSecret } = await fetch(
+      const { error: backEndError, clientSecret } = await fetch(
         'http://localhost:8080/create-payment-intent',
         {
           method: 'POST',
@@ -49,13 +50,17 @@ const PaymentForm = () => {
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            paymentMethodType: 'card',
+            paymentMethodType: 'pm_card_visa',
             orderItems: cart,
             userId: '',
             shippingAddress: address
           })
         }
-      ).then((r) => r.json());
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.clientSecret);
+        });
 
       const { error: stripeError, paymentIntent } =
         await stripe.confirmCardPayment(clientSecret, {
@@ -63,8 +68,9 @@ const PaymentForm = () => {
             card: elements.getElement(CardElement)
           }
         });
-      if (backeEndError || stripeError) {
-        setError(backeEndError || stripeError);
+      if (backEndError || stripeError) {
+        setError(backEndError || stripeError);
+        console.log(error);
       } else if (paymentIntent.status === 'succeeded') {
         dispatch(clearAddress());
         dispatch(clearCart());
@@ -73,12 +79,15 @@ const PaymentForm = () => {
     } catch (err) {
       console.log(err);
     }
-
     setLoading(false);
   };
 
   return (
-    <form className="md:-2/3 md:mx-auto px-2 pt-1" id="payment-form">
+    <form
+      className="md:-2/3 md:mx-auto px-2 pt-1"
+      id="payment-form"
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="card-element" className="pt-4 text-2xl md:text-center">
         Please enter your card details
       </label>
@@ -86,7 +95,7 @@ const PaymentForm = () => {
         <CardElement id="card-element" />
       </div>
       <div className="flex justify-center p-2">
-        <Button onClick={handleSubmit} disabled={loading}>
+        <Button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Pay Now'}
         </Button>
       </div>

@@ -1,12 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./db');
 const productRouter = require('./routes/productRouter');
 const Order = require('./models/orderModel');
+const stripeRouter = require('./routes/stripe');
 const app = express();
 
-const env = require('dotenv').config({ path: '../.env' });
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 var corsOptions = {
@@ -27,6 +29,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/', productRouter);
+app.use('/api/', stripeRouter);
 
 app.use(
   express.json({
@@ -40,7 +43,7 @@ app.use(
   })
 );
 
-// Expose a endpoint as a webhook handler for asynchronous events.
+// Expose an endpoint as a webhook handler for asynchronous events.
 // Configure your webhook in the stripe developer dashboard
 // https://dashboard.stripe.com/test/webhooks
 app.post('/webhook', async (req, res) => {
