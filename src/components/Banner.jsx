@@ -23,7 +23,7 @@ export const Banner = () => {
       </div>
       <div className="banner-image w-full md:w-1/2 p-3 flex justify-end">
         <img
-          src={require('../assets/images/pizza_banner.png')}
+          src={require('../assets/images/banner.jpg')}
           alt="banner"
           className="max-h-95"
         />
