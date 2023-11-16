@@ -50,7 +50,7 @@ const PaymentForm = () => {
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            paymentMethodType: 'pm_card_visa',
+            paymentMethodType: 'card',
             orderItems: cart,
             userId: '',
             shippingAddress: address

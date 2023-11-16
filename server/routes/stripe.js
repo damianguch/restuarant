@@ -17,11 +17,14 @@ router.post('/create-checkout-session', async (req, res) => {
         },
         unit_amount: item.price * 100
       },
-      quantity: item.amount
+      quantity: item.quantity
     };
   });
 
   const session = await stripe.checkout.sessions.create({
+    phone_number_collection: {
+      enabled: true
+    },
     line_items,
     mode: 'payment',
     success_url: `${baseUrl}/payment-success`,

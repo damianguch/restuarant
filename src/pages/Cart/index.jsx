@@ -8,6 +8,7 @@ import AddressForm from '../../components/AddressForm';
 import { ProductsSummary } from '../../components/ProductsSummary';
 import { Link } from 'react-router-dom';
 import { PayButton } from '../../components/PayButton';
+// import { StripeWrapper } from '../../components/PaymentForm';
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -47,6 +48,7 @@ const Cart = () => {
       </div>
       <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
         <PayButton cartItems={cart} />
+        {/*<StripeWrapper />*/}
       </div>
     </div>
   );

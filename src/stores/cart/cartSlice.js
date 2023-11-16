@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       return {
-        products: [...state.products, { ...action.payload, amount: 1 }]
+        products: [...state.products, { ...action.payload, quantity: 1 }]
       };
     },
 
@@ -22,7 +22,7 @@ export const cartSlice = createSlice({
       return {
         products: state.products.map((product) =>
           product.id === action.payload.id
-            ? { ...product, amount: product.amount + 1 }
+            ? { ...product, quantity: product.quantity + 1 }
             : product
         )
       };
@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
       return {
         products: state.products.map((product) =>
           product.id === action.payload.id
-            ? { ...product, amount: product.amount - 1 }
+            ? { ...product, quantity: product.quantity - 1 }
             : product
         )
       };

@@ -25,12 +25,6 @@ const calculateOrderAmount = (orderItems) => {
   return itemsPrice * 100;
 };
 
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api/', productRouter);
-app.use('/api/', stripeRouter);
-
 app.use(
   express.json({
     // We need the raw body to verify webhook signatures.
@@ -42,6 +36,14 @@ app.use(
     }
   })
 );
+
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/', productRouter);
+app.use('/api/', stripeRouter);
+
+// STRIP WEBHOOK
 
 // Expose an endpoint as a webhook handler for asynchronous events.
 // Configure your webhook in the stripe developer dashboard
@@ -73,6 +75,7 @@ app.post('/webhook', async (req, res) => {
     eventType = req.body.type;
   }
 
+  // Handle the event
   if (eventType === 'payment_intent.succeeded') {
     // Funds have been captured
     // Fulfill any orders, e-mail receipts, etc
@@ -112,6 +115,7 @@ app.post('/create-payment-intent', async (req, res) => {
     res.send({
       clientSecret: paymentIntent.client_secret
     });
+    console.log(clientSecret);
   } catch (e) {
     res.status(400).json({
       error: {
@@ -131,3 +135,37 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+//   const signature = req.headers['stripe-signature'];
+
+//   let event;
+
+//   try {
+//     event = stripe.webhooks.constructEvent(
+//       req.rawbody,
+//       signature,
+//       process.env.STRIPE_WEBHOOK_SECRET
+//     );
+//   } catch (err) {
+//     res.status(400).send(`Webhook Error: ${err.message}`);
+//     console.log(`⚠️  Webhook signature verification failed.`);
+//     return;
+//   }
+
+//   switch (event.type) {
+//     case 'payment_intent.succeeded':
+//       const paymentIntentSucceeded = event.data.object;
+//       // Then define and call a function to handle the event payment_intent.succeeded
+//       console.log('💰 Payment captured!');
+//       break;
+//     case 'payment_intent.payment_failed':
+//       console.log('❌ Payment failed.');
+//       break;
+//     default:
+//       console.log(`Unhandled event type ${event.type}`);
+//   }
+
+//   // Return a 200 response to acknowledge receipt of the event
+//   response.sendStatus(200);
+// });
