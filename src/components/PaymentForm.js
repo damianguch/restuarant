@@ -42,25 +42,23 @@ const PaymentForm = () => {
 
     setLoading(true);
     try {
-      const { error: backEndError, clientSecret } = await fetch(
-        'http://localhost:8080/create-payment-intent',
+      const response = await fetch(
+        'http://localhost:8080/api/create-payment-intent',
         {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            paymentMethodType: 'card',
+            paymentMethod: 'card',
             orderItems: cart,
             userId: '',
             shippingAddress: address
           })
         }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.clientSecret);
-        });
+      );
+
+      const { error: backEndError, clientSecret } = await response.json();
 
       const { error: stripeError, paymentIntent } =
         await stripe.confirmCardPayment(clientSecret, {
@@ -68,6 +66,7 @@ const PaymentForm = () => {
             card: elements.getElement(CardElement)
           }
         });
+
       if (backEndError || stripeError) {
         setError(backEndError || stripeError);
         console.log(error);

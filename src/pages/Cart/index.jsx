@@ -7,8 +7,8 @@ import { ReactComponent as ArrowRightSvg } from '../../assets/icons/arrow-right-
 import AddressForm from '../../components/AddressForm';
 import { ProductsSummary } from '../../components/ProductsSummary';
 import { Link } from 'react-router-dom';
-import { PayButton } from '../../components/PayButton';
-// import { StripeWrapper } from '../../components/PaymentForm';
+// import { PayButton } from '../../components/PayButton';
+import { StripeWrapper } from '../../components/PaymentForm';
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -47,8 +47,8 @@ const Cart = () => {
         <AddressForm onTabSwitch={handleTabSwitch} />
       </div>
       <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
-        <PayButton cartItems={cart} />
-        {/*<StripeWrapper />*/}
+        {/*<PayButton cartItems={cart} />*/}
+        <StripeWrapper />
       </div>
     </div>
   );
