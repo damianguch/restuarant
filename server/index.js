@@ -1,10 +1,10 @@
 require('dotenv').config();
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./db');
 const productRouter = require('./routes/productRouter');
+const userRouter = require('./routes/userRouter');
 const stripeRouter = require('./routes/stripe');
 const app = express();
 
@@ -28,6 +28,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/', productRouter);
+app.use('/api/', userRouter);
 app.use('/api/', stripeRouter);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

@@ -6,9 +6,11 @@ import Register from '../pages/Register';
 import Menu from '../pages/Menu';
 import Cart from '../pages/Cart';
 import PaymentSuccess from '../pages/PaymentSuccess';
-import { Services } from '../pages/Services';
 import { useSelector } from 'react-redux';
 import { cartProducts } from '../stores/cart/cartSlice';
+import { Footer } from '../components/Footer';
+import { About } from '../components/About';
+import Services from '../components/Services';
 
 const Navigation = () => {
   const productsInCart = useSelector(cartProducts);
@@ -22,8 +24,10 @@ const Navigation = () => {
         <Route path="/menu" element={<Menu />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

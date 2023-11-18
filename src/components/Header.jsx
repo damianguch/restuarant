@@ -1,8 +1,35 @@
 import foody from '../assets/images/logo.webp';
 import cartIcon from '../assets/icons/cart.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Button from './elements/Button';
 
 export const Header = ({ cartCount }) => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggeIn] = useState(false);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('Auth token');
+    sessionStorage.removeItem('User Id');
+    navigate('/');
+  };
+
+  useEffect(() => {
+    const checkAuthToken = () => {
+      const token = sessionStorage.getItem('Auth token');
+      if (token) {
+        setIsLoggeIn(true);
+      } else {
+        setIsLoggeIn(false);
+      }
+    };
+
+    window.addEventListener('storage', checkAuthToken);
+    return () => {
+      window.removeEventListener('storage', checkAuthToken);
+    };
+  }, []);
+
   return (
     <nav id="header" className="bg-black text-white">
       <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-0.75">
@@ -18,10 +45,11 @@ export const Header = ({ cartCount }) => {
           <Link to="/" className="text-xl">
             Home
           </Link>
+
           <Link to="/services" className="text-xl">
             Services
           </Link>
-          <Link to="#about" className="text-xl">
+          <Link to="about" className="text-xl">
             About
           </Link>
         </div>
@@ -34,8 +62,14 @@ export const Header = ({ cartCount }) => {
               </div>
             ) : null}
           </Link>
-          <Link to="/login">Log In</Link>
-          <Link to="/register">Sign Up</Link>
+          {isLoggedIn ? (
+            <Button onClick={handleLogout}>Log Out</Button>
+          ) : (
+            <>
+              <Link to="/login">Log In</Link>
+              <Link to="/register">Sign Up</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

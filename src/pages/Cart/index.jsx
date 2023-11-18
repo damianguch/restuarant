@@ -28,7 +28,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="bg-white h-screen mx-auto mt-2 border border-gray-200 p-4 md:2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
+    <div className="bg-white  mx-auto mt-2 border border-gray-200 p-4 md:2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
       <Tabs list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab} />
       <div className={`tabs ${currentTab !== 'Summary' ? 'hidden' : ''}`}>
         <ProductsSummary />
