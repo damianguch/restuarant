@@ -2,6 +2,8 @@ import foody from '../assets/images/logo.webp';
 import cartIcon from '../assets/icons/cart.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import Button from './elements/Button';
 
 export const Header = ({ cartCount }) => {
@@ -11,6 +13,7 @@ export const Header = ({ cartCount }) => {
   const handleLogout = () => {
     sessionStorage.removeItem('Auth token');
     sessionStorage.removeItem('User Id');
+    window.dispatchEvent(new Event('storage'));
     navigate('/');
   };
 
@@ -21,8 +24,22 @@ export const Header = ({ cartCount }) => {
         setIsLoggeIn(true);
       } else {
         setIsLoggeIn(false);
+        toast.success('Successfully Logged Out!🎉', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark'
+        });
       }
     };
+
+    // register event listener to handle the 'storage' event
+    // listener performs actions(checkAuthToken) in response to changes in
+    //the storage.
 
     window.addEventListener('storage', checkAuthToken);
     return () => {
@@ -71,6 +88,7 @@ export const Header = ({ cartCount }) => {
             </>
           )}
         </div>
+        <ToastContainer />
       </div>
     </nav>
   );

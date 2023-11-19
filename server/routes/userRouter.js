@@ -3,10 +3,12 @@ const router = express.Router();
 const User = require('../models/userModel');
 
 router.post('/register', (req, res) => {
+  const { name, email, firebase_id } = req.body;
+
   const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    _id: req.body._id
+    name,
+    email,
+    firebase_id
   });
 
   user.save((err, user) => {

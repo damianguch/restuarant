@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/elements/Button';
-import { app } from '../../firebase-config';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { auth } from '../../firebase-config';
 
 const Register = () => {
   let navigate = useNavigate();
@@ -14,56 +14,57 @@ const Register = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    const authentication = getAuth();
+    //const authentication = getAuth();
     let uid = '';
-    createUserWithEmailAndPassword(authentication, data.email, data.password)
-      .then((response) => {
-        uid = response.user.uid;
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        uid = user.uid;
         sessionStorage.setItem('User Id', uid);
         sessionStorage.setItem(
           'Auth token',
-          response._tokenResponse.refreshToken
+          userCredential._tokenResponse.refreshToken
         );
         window.dispatchEvent(new Event('storage'));
+        setLoading(false);
+        navigate('/');
+
+        fetch('http://localhost:8080/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: data.email,
+            name: data.name,
+            firebase_id: uid
+          })
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              toast.success('Account created successfully!🎉', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark'
+              });
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+          });
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           toast.error('Email Already In Use');
-        }
-      });
-
-    fetch('http://localhost:8080/api/create-user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: data.email,
-        name: data.name,
-        _id: uid
-      })
-    })
-      .then((response) => {
-        if (response.status === 200) {
           setLoading(false);
-          toast.success('Account created successfully!🎉', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'dark'
-          });
-          navigate('/');
-        } else {
-          console.log(response.json());
         }
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
       });
   };
   return (
@@ -71,7 +72,7 @@ const Register = () => {
       <div className="rounded-lg max-w-md w-full flex flex-col items-center justify-center relative">
         <div className="absolute inset-0 transition duration-300 animate-pink blur  gradient bg-gradient-to-tr from-rose-500 to-yellow-500"></div>
         <div className="p-10 rounded-xl z-10 w-full h-full bg-black">
-          <h5 className="text-3xl text-white">Register</h5>
+          <h5 className="text-3xl text-white pl-28">Register</h5>
           <form className="w-full space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label

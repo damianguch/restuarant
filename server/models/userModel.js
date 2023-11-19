@@ -15,11 +15,9 @@ const userSchema = new mongoose.Schema(
       maxlength: 200,
       unique: true
     },
-    password: {
+    firebase_id: {
       type: String,
-      required: true,
-      minlength: 3,
-      maxlength: 1024
+      require: true
     },
     isAdmin: {
       type: Boolean,
@@ -29,6 +27,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model('User', userSchema);
-
-exports.User = User;
+module.exports = mongoose.model('User', userSchema);

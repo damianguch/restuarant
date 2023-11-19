@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/elements/Button';
-import { app } from '../../firebase-config';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { auth } from '../../firebase-config';
 
 const Login = () => {
   let navigate = useNavigate();
@@ -14,21 +14,22 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    const authentication = getAuth();
+
     let uid = '';
-    signInWithEmailAndPassword(authentication, data.email, data.password)
-      .then((response) => {
-        uid = response.user.uid;
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        uid = user.uid;
         sessionStorage.setItem('User Id', uid);
         sessionStorage.setItem(
           'Auth token',
-          response._tokenResponse.refreshToken
+          userCredential._tokenResponse.refreshToken
         );
         window.dispatchEvent(new Event('storage'));
         setLoading(false);
         toast.success('Successful Login!🎉', {
-          position: 'top-right',
-          autoClose: 5000,
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -39,12 +40,10 @@ const Login = () => {
         navigate('/');
       })
       .catch((error) => {
-        if (error.code === 'auth/wrong-password') {
-          toast.error('Wrong Password');
+        if (error.code === 'auth/invalid-login-credentials') {
+          toast.error('Wrong Password or Email');
         }
-        if (error.code === 'auth/user-not-found') {
-          toast.error('Email not found, please register');
-        }
+
         setLoading(false);
       });
   };
@@ -83,7 +82,7 @@ const Login = () => {
                 className="block appearance-none w-full px-3 py-2 border border-gray-300 roundedn-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-200 focus:border-gray-200"
               />
             </div>
-            <Button size="large">{loading ? 'loading' : 'Register'}</Button>
+            <Button size="large">{loading ? 'loading' : 'Login'}</Button>
           </form>
           <ToastContainer />
         </div>
