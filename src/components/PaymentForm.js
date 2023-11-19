@@ -11,6 +11,7 @@ import { getAddress, clearAddress } from '../stores/userInfo/addressSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Button from './elements/Button';
+import { getUser } from '../stores/userInfo/userSlice';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -28,6 +29,7 @@ const PaymentForm = () => {
   const dispatch = useDispatch();
   const cart = useSelector(cartProducts);
   const address = useSelector(getAddress);
+  const user = useSelector(getUser);
   const navigate = useNavigate();
   const elements = useElements();
   const stripe = useStripe();
@@ -52,7 +54,7 @@ const PaymentForm = () => {
           body: JSON.stringify({
             paymentMethod: 'card',
             orderItems: cart,
-            userId: '',
+            userId: user._id,
             shippingAddress: address
           })
         }

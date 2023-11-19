@@ -15,7 +15,15 @@ router.post('/register', (req, res) => {
     if (err) {
       res.status(400).send({ error: err });
     } else {
-      res.status(200).send({ data: user });
+      const { _id, email, isAdmin, name } = user;
+      res.status(200).send({
+        data: {
+          _id,
+          email,
+          isAdmin,
+          name
+        }
+      });
     }
   });
 });

@@ -190,7 +190,7 @@ const calculateOrderAmount = (orderItems) => {
       previousValue + currentValue.price * currentValue.quantity,
     initialValue
   );
-  return itemsPrice * 100;
+  return itemsPrice;
 };
 
 router.post('/create-payment-intent', async (req, res) => {
@@ -208,7 +208,7 @@ router.post('/create-payment-intent', async (req, res) => {
       totalPrice,
       taxPrice,
       shippingPrice,
-      user: ''
+      userId
     });
 
     await order.save();

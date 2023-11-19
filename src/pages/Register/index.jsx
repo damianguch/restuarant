@@ -6,15 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth } from '../../firebase-config';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../stores/userInfo/userSlice';
 
 const Register = () => {
   let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
     setLoading(true);
-    //const authentication = getAuth();
+
     let uid = '';
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
@@ -54,6 +58,11 @@ const Register = () => {
               });
               setLoading(false);
             }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data.data);
+            dispatch(setUser(data.data));
           })
           .catch((error) => {
             setLoading(false);
