@@ -57,8 +57,8 @@ const Register = () => {
                 theme: 'dark'
               });
               setLoading(false);
+              return res.json();
             }
-            return res.json();
           })
           .then((data) => {
             console.log(data.data);
