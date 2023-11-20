@@ -1,5 +1,6 @@
 {
   "name": "food-ordering-app",
+  "homepage": "https://damianguch.github.io/food-ordering-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +27,8 @@
     "stripe": "^14.4.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,6 +54,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "gh-pages": "^6.1.0",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.6"
   }
