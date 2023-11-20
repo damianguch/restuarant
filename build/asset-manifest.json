@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/food-ordering-app/static/css/main.3e4b8d50.css",
-    "main.js": "/food-ordering-app/static/js/main.c8c0976b.js",
+    "main.js": "/food-ordering-app/static/js/main.368d4b20.js",
     "static/media/about.jpg": "/food-ordering-app/static/media/about.7241b52906cfd899dc32.jpg",
     "static/media/banner.jpg": "/food-ordering-app/static/media/banner.9d7da225be208f1074f7.jpg",
     "static/media/logo.webp": "/food-ordering-app/static/media/logo.90cba6c845e6db50a6cb.webp",
@@ -15,10 +15,10 @@
     "static/media/arrow-right-long-svgrepo-com.svg": "/food-ordering-app/static/media/arrow-right-long-svgrepo-com.a7f71589bf082b88f9b5f1b140b57870.svg",
     "static/media/cart.svg": "/food-ordering-app/static/media/cart.2276ad715714ff0d6f0223caebec0359.svg",
     "main.3e4b8d50.css.map": "/food-ordering-app/static/css/main.3e4b8d50.css.map",
-    "main.c8c0976b.js.map": "/food-ordering-app/static/js/main.c8c0976b.js.map"
+    "main.368d4b20.js.map": "/food-ordering-app/static/js/main.368d4b20.js.map"
   },
   "entrypoints": [
     "static/css/main.3e4b8d50.css",
-    "static/js/main.c8c0976b.js"
+    "static/js/main.368d4b20.js"
   ]
 }

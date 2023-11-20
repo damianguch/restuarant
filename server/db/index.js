@@ -1,7 +1,8 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://localhost:27017/food-ordering', { useNewUrlParser: true })
+  .connect(process.env.MONGODB_ATLAS, { useNewUrlParser: true })
   .then(() => {
     console.log('Database connection successful!');
   })
