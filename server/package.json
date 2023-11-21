@@ -1,6 +1,9 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "engines": {
+    "node": "19.9.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,9 +11,6 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": "19.9.0"
   },
   "keywords": [],
   "author": "",
