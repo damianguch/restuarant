@@ -43,7 +43,7 @@ const Register = () => {
         });
         navigate('/');
 
-        fetch('http://localhost:8080/api/register', {
+        fetch('/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
