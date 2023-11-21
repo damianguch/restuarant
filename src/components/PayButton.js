@@ -7,7 +7,7 @@ export const PayButton = ({ cartItems }) => {
   const user = useSelector(selectUser);
   const handleCheckout = () => {
     axios
-      .post('http://localhost:8080/api/create-checkout-session', {
+      .post('/api/create-checkout-session', {
         cartItems,
         user: user._id
       })

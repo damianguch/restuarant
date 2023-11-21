@@ -12,7 +12,7 @@ export const Search = () => {
       setIsLoading(true);
 
       // Send a request to the backend to fetch search results
-      fetch(`http://localhost:8080/api/products/search?q=${searchIterm}`)
+      fetch(`/api/products/search?q=${searchIterm}`)
         .then((response) => response.json())
         .then((data) => {
           setSearchResults(data?.data);
