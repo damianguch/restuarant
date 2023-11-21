@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/food-ordering-app/static/css/main.3e4b8d50.css",
-    "main.js": "/food-ordering-app/static/js/main.368d4b20.js",
-    "static/media/about.jpg": "/food-ordering-app/static/media/about.7241b52906cfd899dc32.jpg",
-    "static/media/banner.jpg": "/food-ordering-app/static/media/banner.9d7da225be208f1074f7.jpg",
-    "static/media/logo.webp": "/food-ordering-app/static/media/logo.90cba6c845e6db50a6cb.webp",
-    "static/media/ClashDisplay-Medium.woff2": "/food-ordering-app/static/media/ClashDisplay-Medium.88a32cc8fc026d95af05.woff2",
-    "static/media/ClashDisplay-Regular.woff2": "/food-ordering-app/static/media/ClashDisplay-Regular.98b52bdf102085f28108.woff2",
-    "static/media/ClashDisplay-Bold.woff2": "/food-ordering-app/static/media/ClashDisplay-Bold.e2f8628a6f360f644a76.woff2",
-    "static/media/revicons.eot": "/food-ordering-app/static/media/revicons.a77de540a38981833f9e.eot",
-    "static/media/revicons.ttf": "/food-ordering-app/static/media/revicons.57fd05d4ae650374c8de.ttf",
-    "static/media/revicons.woff": "/food-ordering-app/static/media/revicons.e8746a624ed098489406.woff",
-    "index.html": "/food-ordering-app/index.html",
-    "static/media/arrow-right-long-svgrepo-com.svg": "/food-ordering-app/static/media/arrow-right-long-svgrepo-com.a7f71589bf082b88f9b5f1b140b57870.svg",
-    "static/media/cart.svg": "/food-ordering-app/static/media/cart.2276ad715714ff0d6f0223caebec0359.svg",
-    "main.3e4b8d50.css.map": "/food-ordering-app/static/css/main.3e4b8d50.css.map",
-    "main.368d4b20.js.map": "/food-ordering-app/static/js/main.368d4b20.js.map"
+    "main.css": "/static/css/main.edeb124c.css",
+    "main.js": "/static/js/main.c83175aa.js",
+    "static/media/about.jpg": "/static/media/about.7241b52906cfd899dc32.jpg",
+    "static/media/banner.jpg": "/static/media/banner.9d7da225be208f1074f7.jpg",
+    "static/media/logo.webp": "/static/media/logo.90cba6c845e6db50a6cb.webp",
+    "static/media/ClashDisplay-Medium.woff2": "/static/media/ClashDisplay-Medium.88a32cc8fc026d95af05.woff2",
+    "static/media/ClashDisplay-Regular.woff2": "/static/media/ClashDisplay-Regular.98b52bdf102085f28108.woff2",
+    "static/media/ClashDisplay-Bold.woff2": "/static/media/ClashDisplay-Bold.e2f8628a6f360f644a76.woff2",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/index.html",
+    "static/media/arrow-right-long-svgrepo-com.svg": "/static/media/arrow-right-long-svgrepo-com.a7f71589bf082b88f9b5f1b140b57870.svg",
+    "static/media/cart.svg": "/static/media/cart.2276ad715714ff0d6f0223caebec0359.svg",
+    "main.edeb124c.css.map": "/static/css/main.edeb124c.css.map",
+    "main.c83175aa.js.map": "/static/js/main.c83175aa.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e4b8d50.css",
-    "static/js/main.368d4b20.js"
+    "static/css/main.edeb124c.css",
+    "static/js/main.c83175aa.js"
   ]
 }
