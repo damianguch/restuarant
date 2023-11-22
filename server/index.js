@@ -9,9 +9,9 @@ const userRouter = require('./routes/userRouter');
 const stripeRouter = require('./routes/stripe');
 const app = express();
 
-var corsOptions = {
-  origin: 'http://localhost:3000'
-};
+// var corsOptions = {
+//   origin: 'http://localhost:3000'
+// };
 
 app.use(
   express.json({
@@ -25,7 +25,7 @@ app.use(
   })
 );
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/', productRouter);
@@ -42,8 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 5000;
-const HOST = process.env.HOST || '0.0.0.0';
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://${HOST}:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
