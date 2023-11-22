@@ -30,7 +30,7 @@ export const ProductsPreview = () => {
   };
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch('REACT_APP_API_URL/api/products')
       .then((response) => response.json())
       .then((data) => setProducts(data?.data))
       .catch((e) => console.log(e));
