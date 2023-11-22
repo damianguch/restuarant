@@ -29,7 +29,7 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
     const response = await fetch(
-      'http://localhost:8080/api/products-by-categories'
+      'https://food-ordering-b921316c67e7.herokuapp.com/api/products-by-categories'
     );
     const data = await response.json();
     return data;
