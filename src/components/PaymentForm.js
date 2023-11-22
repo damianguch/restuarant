@@ -13,7 +13,9 @@ import { useState } from 'react';
 import Button from './elements/Button';
 import { getUser } from '../stores/userInfo/userSlice';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(
+  `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
+);
 
 export const StripeWrapper = () => {
   return (
