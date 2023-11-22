@@ -30,7 +30,7 @@ export const ProductsPreview = () => {
   };
 
   useEffect(() => {
-    fetch('REACT_APP_API_URL/api/products')
+    fetch('https://food-ordering-b921316c67e7.herokuapp.com/api/products')
       .then((response) => response.json())
       .then((data) => setProducts(data?.data))
       .catch((e) => console.log(e));
