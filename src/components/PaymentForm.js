@@ -44,18 +44,21 @@ const PaymentForm = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          paymentMethod: 'card',
-          orderItems: cart,
-          userId: user._id,
-          shippingAddress: address
-        })
-      });
+      const response = await fetch(
+        'https://food-ordering-b921316c67e7.herokuapp.com/api/create-payment-intent',
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentMethod: 'card',
+            orderItems: cart,
+            userId: user._id,
+            shippingAddress: address
+          })
+        }
+      );
 
       const { error: backEndError, clientSecret } = await response.json();
 
