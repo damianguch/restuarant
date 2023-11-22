@@ -51,7 +51,8 @@ const PaymentForm = () => {
         {
           method: 'POST',
           headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
           },
           body: JSON.stringify({
             paymentMethod: 'card',
