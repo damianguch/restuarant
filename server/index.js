@@ -49,7 +49,7 @@ db.on('disconnected', () => {
 
 // Close the MongoDB connection when the Node.js process is terminated
 process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
+  db.close(() => {
     console.log('MongoDB connection closed due to application termination');
     process.exit(0);
   });
