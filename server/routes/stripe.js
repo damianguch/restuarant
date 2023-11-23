@@ -195,7 +195,7 @@ const calculateOrderAmount = (orderItems) => {
 
 router.post('/create-payment-intent', async (req, res) => {
   try {
-    const { orderItems, shippingAddress, userId } = req.body;
+    const { orderItems, shippingAddress, userId, paymentMethodType } = req.body;
 
     const totalPrice = calculateOrderAmount(orderItems);
     const taxPrice = 0;
@@ -204,7 +204,7 @@ router.post('/create-payment-intent', async (req, res) => {
     const order = new Order({
       orderItems,
       shippingAddress,
-      paymentMethod: 'stripe',
+      paymentMethodType,
       totalPrice,
       taxPrice,
       shippingPrice,
@@ -215,17 +215,18 @@ router.post('/create-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalPrice,
-      currency: 'usd'
+      currency: 'usd',
+      payment_methods_types: [paymentMethodType]
     });
 
-    res.status(200).json({
+    res.json({
       clientSecret: paymentIntent.client_secret
     });
   } catch (e) {
     console.error(e);
-    // res.status(400).json({
-    //   error: e.message
-    // });
+    res.status(400).json({
+      error: { message: e.message }
+    });
   }
 });
 

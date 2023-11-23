@@ -46,7 +46,7 @@ const PaymentForm = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(
+      const res = await fetch(
         'https://food-ordering-b921316c67e7.herokuapp.com/api/create-payment-intent',
         {
           method: 'POST',
@@ -55,7 +55,8 @@ const PaymentForm = () => {
             Authorization: `Bearer ${process.env.REACT_APP_STRIPE_SECRET_KEY}`
           },
           body: JSON.stringify({
-            paymentMethod: 'card',
+            paymentMethodType: 'card',
+            currency: 'usd',
             orderItems: cart,
             userId: user._id,
             shippingAddress: address
@@ -63,7 +64,7 @@ const PaymentForm = () => {
         }
       );
 
-      const { error: backEndError, clientSecret } = await response.json();
+      const { error: backEndError, clientSecret } = await res.json();
 
       const { error: stripeError, paymentIntent } =
         await stripe.confirmCardPayment(clientSecret, {
