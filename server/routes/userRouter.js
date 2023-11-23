@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
       throw new Error('User not found');
     }
   } catch (e) {
-    res.send(400).json({ error: e.message });
+    res.json({ error: e.message });
   }
 });
 
