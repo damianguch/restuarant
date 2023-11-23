@@ -32,7 +32,28 @@ app.use('/api/', productRouter);
 app.use('/api/', userRouter);
 app.use('/api/', stripeRouter);
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// Connection successful
+db.on('connected', () => {
+  console.log('Connection to MongoDB Successfull!');
+});
+
+// Connection error
+db.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
+
+// Connection disconnected
+db.on('disconnected', () => {
+  console.log('Disconnected from MongoDB');
+});
+
+// Close the MongoDB connection when the Node.js process is terminated
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('MongoDB connection closed due to application termination');
+    process.exit(0);
+  });
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build'));
