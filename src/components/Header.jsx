@@ -5,14 +5,18 @@ import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Button from './elements/Button';
+import { useDispatch } from 'react-redux';
+import { resetUser } from '../stores/userInfo/userSlice';
 
 export const Header = ({ cartCount }) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggeIn] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     sessionStorage.removeItem('Auth token');
     sessionStorage.removeItem('User Id');
+    dispatch(resetUser());
     window.dispatchEvent(new Event('storage'));
     navigate('/');
   };
@@ -37,8 +41,8 @@ export const Header = ({ cartCount }) => {
       }
     };
 
-    // register event listener to handle the 'storage' event
-    // listener performs actions(checkAuthToken) in response to changes in
+    // Register event listener to handle the 'storage' event.
+    // Event listener performs actions(checkAuthToken) in response to changes in
     //the storage.
 
     window.addEventListener('storage', checkAuthToken);

@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../../firebase-config';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../stores/userInfo/userSlice';
 
 const Login = () => {
   let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     setLoading(true);
@@ -27,23 +30,46 @@ const Login = () => {
         );
         window.dispatchEvent(new Event('storage'));
         setLoading(false);
-        toast.success('Successful Login!🎉', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark'
-        });
-        navigate('/');
+
+        fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: data.email
+          })
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              toast.success('Successful Login!🎉', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark'
+              });
+              setLoading(false);
+              navigate('/');
+              return res.json();
+            }
+          })
+          .then((data) => {
+            console.log(data.data);
+            dispatch(setUser(data.data));
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+          });
       })
       .catch((error) => {
         if (error.code === 'auth/invalid-login-credentials') {
           toast.error('Wrong Password or Email');
         }
-
         setLoading(false);
       });
   };

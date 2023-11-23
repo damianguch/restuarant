@@ -12,9 +12,7 @@ export const Search = () => {
       setIsLoading(true);
 
       // Send a request to the backend to fetch search results
-      fetch(
-        `https://food-ordering-b921316c67e7.herokuapp.com/api/products/search?q=${searchIterm}`
-      )
+      fetch(`/api/products/search?q=${searchIterm}`)
         .then((response) => response.json())
         .then((data) => {
           setSearchResults(data?.data);
@@ -25,7 +23,7 @@ export const Search = () => {
           setIsLoading(false);
         });
     } else {
-      setSearchResults([]); // Clear results when search term is empty
+      setSearchResults([]); // Clear results when search iterm is empty
     }
   }, [searchIterm]);
 

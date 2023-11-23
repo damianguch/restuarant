@@ -28,4 +28,28 @@ router.post('/register', (req, res) => {
   });
 });
 
+router.post('/login', async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  try {
+    if (user) {
+      const { _id, name, email, isAdmin } = user;
+      res.json({
+        data: {
+          _id,
+          email,
+          name,
+          isAdmin
+        }
+      });
+    } else {
+      throw new Error('User not found');
+    }
+  } catch (e) {
+    res.send(400).json({ error: e.message });
+  }
+});
+
 module.exports = router;
