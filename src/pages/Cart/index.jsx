@@ -38,7 +38,7 @@ const Cart = () => {
             className="flex items-center"
             onClick={() => handleTabSwitch('Delivery')}
           >
-            <span className="mr-1">Next</span>
+            <span className="mr-1">CheckOut</span>
             <ArrowRightSvg />
           </Button>
         </div>

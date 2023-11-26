@@ -8,12 +8,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../../firebase-config';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../stores/userInfo/userSlice';
+import { cartProducts } from '../../stores/cart/cartSlice';
 
 const Login = () => {
   let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const cart = useSelector(cartProducts);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const onSubmit = (data) => {
@@ -54,16 +56,16 @@ const Login = () => {
                 theme: 'dark'
               });
               setLoading(false);
-              if (!isAuthenticated) {
-                navigate('/cart');
-              } else {
-                navigate('/');
-              }
             }
             return res.json();
           })
           .then((data) => {
             console.log(data.data);
+            if (!isAuthenticated && cart.length > 0) {
+              navigate('/cart');
+            } else {
+              navigate('/');
+            }
             dispatch(setUser(data.data));
           })
           .catch((error) => {
