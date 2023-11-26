@@ -19,7 +19,7 @@ const Cart = () => {
     return (
       <div className="bg-white h-full text-black text-xl flex flex-col items-center justify-start p-4">
         <h1>Your Cart is empty</h1>
-        <Link to="/" className="font-medium">
+        <Link to="/menu" className="font-medium">
           <span> Start Shopping</span>
           <ArrowRightSvg className="inline" />
         </Link>
