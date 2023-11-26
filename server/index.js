@@ -9,9 +9,9 @@ const userRouter = require('./routes/userRouter');
 const stripeRouter = require('./routes/stripe');
 const app = express();
 
-// var corsOptions = {
-//   origin: 'http://localhost:3000'
-// };
+var corsOptions = {
+  origin: 'http://localhost:3000'
+};
 
 app.use(
   express.json({
@@ -25,17 +25,12 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/', productRouter);
 app.use('/api/', userRouter);
 app.use('/api/', stripeRouter);
-
-// Connection successful
-db.on('connected', () => {
-  console.log('Connection to MongoDB Successfull!');
-});
 
 // Connection error
 db.on('error', (err) => {

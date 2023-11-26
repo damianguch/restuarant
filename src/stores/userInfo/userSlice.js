@@ -9,12 +9,14 @@ const userSlice = createSlice({
       _id: '',
       isAdmin: false
     },
-    error: null
+    error: null,
+    isAuthenticated: false
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
       state.error = null;
+      state.isAuthenticated = true;
     },
 
     setError: (state, action) => {
@@ -28,6 +30,7 @@ const userSlice = createSlice({
         isAdmin: false
       };
       state.error = null;
+      state.isAuthenticated = false;
     }
   }
 });

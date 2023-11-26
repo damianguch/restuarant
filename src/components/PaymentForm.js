@@ -35,52 +35,56 @@ const PaymentForm = () => {
   const navigate = useNavigate();
   const elements = useElements();
   const stripe = useStripe();
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
+      // check if stripe is initialized
+      if (!stripe || !elements || !cart?.length || !address) {
+        return;
+      }
 
-    // check if stripe is initialized
-    if (!stripe || !elements || !cart?.length || !address) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          paymentMethodType: 'card',
-          currency: 'usd',
-          orderItems: cart,
-          userId: user._id,
-          shippingAddress: address
-        })
-      });
-
-      const { error: backEndError, clientSecret } = await res.json();
-
-      const { error: stripeError, paymentIntent } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: elements.getElement(CardElement)
-          }
+      setLoading(true);
+      try {
+        const res = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentMethodType: 'card',
+            currency: 'usd',
+            orderItems: cart,
+            userId: user._id,
+            shippingAddress: address
+          })
         });
 
-      if (backEndError || stripeError) {
-        setError(backEndError || stripeError);
-        console.log(error);
-      } else if (paymentIntent.status === 'succeeded') {
-        dispatch(clearAddress());
-        dispatch(clearCart());
-        navigate('/payment-success');
+        const { error: backEndError, clientSecret } = await res.json();
+
+        const { error: stripeError, paymentIntent } =
+          await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: elements.getElement(CardElement)
+            }
+          });
+
+        if (backEndError || stripeError) {
+          setError(backEndError || stripeError);
+          console.log(error);
+        } else if (paymentIntent.status === 'succeeded') {
+          dispatch(clearAddress());
+          dispatch(clearCart());
+          navigate('/payment-success');
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

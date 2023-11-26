@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../../firebase-config';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../stores/userInfo/userSlice';
 
 const Login = () => {
@@ -14,6 +14,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const onSubmit = (data) => {
     setLoading(true);
@@ -53,9 +54,13 @@ const Login = () => {
                 theme: 'dark'
               });
               setLoading(false);
-              navigate('/');
-              return res.json();
+              if (!isAuthenticated) {
+                navigate('/cart');
+              } else {
+                navigate('/');
+              }
             }
+            return res.json();
           })
           .then((data) => {
             console.log(data.data);
@@ -78,7 +83,7 @@ const Login = () => {
       <div className="rounded-lg max-w-md w-full flex flex-col items-center justify-center relative">
         <div className="absolute inset-0 transition duration-300 animate-pink blur  gradient bg-gradient-to-tr from-rose-500 to-yellow-500"></div>
         <div className="p-10 rounded-xl z-10 w-full h-full bg-black">
-          <h5 className="text-3xl">Login</h5>
+          <h5 className="text-3xl text-white">Login</h5>
           <form className="w-full space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
